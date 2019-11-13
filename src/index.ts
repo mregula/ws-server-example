@@ -1,14 +1,17 @@
 import * as http from 'http';
 import websocket from "websocket";
 
-const webSocketsServerPort = 8000;
+const PORT = process.env.PORT || 8080;
 const webSocketServer = websocket.server;
 
-const server = http.createServer();
+const server = http.createServer(function handleRequest(request, response){
+  response.end('Server working properly. Requested URL : ' + request.url);
+});
 
 // start the http server
-server.listen(webSocketsServerPort, () => {
-  console.log(`server is listening on port: ${webSocketsServerPort}`);
+server.listen(PORT, () => {
+  console.log(`server is listening on port: ${PORT}`);
+
 });
 
 // tie the WebSocket server to the HTTP port

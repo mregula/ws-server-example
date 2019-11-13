@@ -12,12 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var http = __importStar(require("http"));
 var websocket_1 = __importDefault(require("websocket"));
-var webSocketsServerPort = 8000;
+var PORT = process.env.PORT || 8080;
 var webSocketServer = websocket_1.default.server;
-var server = http.createServer();
+var server = http.createServer(function handleRequest(request, response) {
+    response.end('Server working properly. Requested URL : ' + request.url);
+});
 // start the http server
-server.listen(webSocketsServerPort, function () {
-    console.log("server is listening on port: " + webSocketsServerPort);
+server.listen(PORT, function () {
+    console.log("server is listening on port: " + PORT);
 });
 // tie the WebSocket server to the HTTP port
 var wsServer = new webSocketServer({
